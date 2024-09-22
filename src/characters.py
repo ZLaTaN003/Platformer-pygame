@@ -2,15 +2,18 @@ from __future__ import annotations
 import pygame
 from typing import TYPE_CHECKING, Iterable
 
+
 if TYPE_CHECKING:
     from game import Game
+    from src.tile import TileMap
 
 
 class PhysicsBase:
     """Using this as my player blueprint for now"""
 
-    def __init__(self, game: Game, c_type: str, pos: Iterable[int]) -> None:
+    def __init__(self, game: Game,tilemap: TileMap, c_type: str, pos: Iterable[int]) -> None:
         self.game = game
+        self.tilmap = tilemap
         self.character_type = c_type
         self.position = list(pos)
         self.velocity = [0,0]

@@ -15,16 +15,18 @@ class Game:
         self.clock = pygame.time.Clock()
         self.data = {
             "player": load_image("entities/player.png"),
-            "grass": load_images("tiles/grass"),  #return list
+            "grass": load_images("tiles/grass"),  # return list
             "decor": load_images("tiles/decor"),
             "large_decor": load_images("tiles/large_decor"),
             "spawners": load_images("tiles/spawners"),
             "stone": load_images("tiles/stone"),
         }
-        self.player = PhysicsBase(game=self, c_type="player", pos=(50, 100))
         self.movement = [0, 0]  # move left or right [left,right]  r - l = +ve
 
         self.tilemap = TileMap(self)
+        self.player = PhysicsBase(
+            game=self, tilemap=self.tilemap, c_type="player", pos=(50, 100)
+        )
 
     def run(self) -> None:
         """Main Game loop here"""
@@ -35,8 +37,7 @@ class Game:
             self.player.draw(self.display)
             moved = self.movement[1] - self.movement[0]
             self.player.make_movement_frame((moved, 0))
-            print(self.tilemap.find_neighbour_tiles(self.player.position))
-
+            print(self.tilemap.collision_rects(self.player.position))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
