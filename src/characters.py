@@ -16,16 +16,16 @@ class PhysicsBase:
         self.velocity = [0,0]
 
 
-    def make_movement_frame(self,movement: tuple):
+    def make_movement_frame(self,movement: tuple) -> None:
         """gets the movement delta
         movement param is from keypress"""
         frame_movement = (self.velocity[0] + movement[0] , self.velocity[1] + movement[1])
-
+        self.velocity[1] = min(5, self.velocity[1] + 0.1) #terminal velocity
         self.position[0] += frame_movement[0]
         self.position[1] += frame_movement[1]
 
 
-    def draw(self,surface: pygame.Surface):
+    def draw(self,surface: pygame.Surface) -> None:
         "draws the player"
         player = self.game.data["player"]
         surface.blit(player,self.position)
