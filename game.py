@@ -35,9 +35,9 @@ class Game:
             self.display.fill("purple")
             self.tilemap.draw(self.display)
             self.player.draw(self.display)
-            moved = self.movement[1] - self.movement[0]
+            moved = self.movement[1] - self.movement[0] #+ve -ve movements
             self.player.make_movement_frame((moved, 0))
-            print(self.tilemap.collision_rects(self.player.position))
+            print(self.tilemap.collision_tile_rects(self.player.position))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -48,11 +48,14 @@ class Game:
                         self.movement[0] = 1
                     if event.key == pygame.K_RIGHT:
                         self.movement[1] = 1
+                    if event.key == pygame.K_SPACE:
+                        self.player.velocity[1] = -3
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT:
                         self.movement[0] = 0
                     if event.key == pygame.K_RIGHT:
                         self.movement[1] = 0
+            
 
             self.screen.blit(
                 pygame.transform.scale(self.display, self.screen.get_size()), (0, 0)

@@ -16,7 +16,7 @@ class TileMap:
             {}
         )  # stores the  tile with its types its index of img list pos of grid column and row
 
-        for i in range(10):
+        for i in range(10): #grid of tilemap
             self.tilemap[(3 + i, 10)] = {
                 "type": "grass",
                 "index": 1,
@@ -69,7 +69,7 @@ class TileMap:
 
         return neighbours
 
-    def collision_rects(self, pos: tuple):
+    def collision_tile_rects(self, pos: tuple):
         """Gets a list of tile rects for collision"""
         tile_rects = []
         for neighbour_tile in self.find_neighbour_tiles(pos):
