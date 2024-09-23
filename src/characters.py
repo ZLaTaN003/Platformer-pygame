@@ -1,6 +1,6 @@
 from __future__ import annotations
 import pygame
-from typing import TYPE_CHECKING, Iterable
+from typing import TYPE_CHECKING, Iterable, List
 
 
 if TYPE_CHECKING:
@@ -31,15 +31,18 @@ class PhysicsBase:
 
         self.position[0] += frame_movement[0]
 
-
         player_rect = self.rect()
         for tile_rect in self.tilemap.collision_tile_rects(self.position):
             if player_rect.colliderect(tile_rect):
                 if frame_movement[0] > 0:  # moves right +ve value of movement
-                    player_rect.right = tile_rect.left  # makes collision possible by changing the player_rect and tile_rect sides
+                    player_rect.right = (
+                        tile_rect.left
+                    )  # makes collision possible by changing the player_rect and tile_rect sides
                 if frame_movement[0] < 0:  # move left -ve
                     player_rect.left = tile_rect.right
-                self.position[0] = player_rect.x  # change position of player to new position
+                self.position[0] = (
+                    player_rect.x
+                )  # change position of player to new position
 
         self.position[1] += frame_movement[1]
         player_rect = self.rect()
@@ -54,10 +57,12 @@ class PhysicsBase:
 
         self.velocity[1] = min(5, self.velocity[1] + 0.1)  # terminal velocity
 
-    def draw(self, surface: pygame.Surface) -> None:
+    def draw(self, surface: pygame.Surface, offset: List[int]) -> None:
         "draws the player"
         player = self.game.data["player"]
-        surface.blit(player, self.position)
+        surface.blit(
+            player, (self.position[0] - offset[0], self.position[1] - offset[1])  #subtract camera offset which make it moving
+        )
 
     def rect(self):
         """player rect"""
