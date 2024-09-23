@@ -9,20 +9,31 @@ if TYPE_CHECKING:
 
 
 class TileMap:
-    
+
     def __init__(self, game: Game, tile_size: int = 16) -> None:
         self.game = game
         self.tile_size = tile_size
         self.tilemap = (
             {}
         )  # stores the  tile with its types its index of img list pos of grid column and row
-
-        for i in range(10):  # grid of tilemap
+        self.generate_tiles()
+    def generate_tiles(self):
+        for i in range(1000):  # grid of tilemap
             self.tilemap[(3 + i, 10)] = {
                 "type": "grass",
                 "index": 1,
                 "pos": (3 + i, 10),  # grid position
             }  # horizontal grass line as tile_loc : tile_data  l
+            self.tilemap[(3 + i, 15)] = {
+                "type": "grass",
+                "index": 1,
+                "pos": (3 + i, 5),  # grid position
+            }
+            self.tilemap[(3 + i, 2)] = {
+                "type": "grass",
+                "index": 1,
+                "pos": (3 + i, 2),  # grid position
+            }
             self.tilemap[(10, 3 + i)] = {
                 "type": "stone",
                 "index": 1,
@@ -30,13 +41,15 @@ class TileMap:
             }  # vertical stone line as tile_loc : tile_data  l
 
     def draw(self, surface: Surface, offset: List[int]) -> None:
+    
         for tile_loc in self.tilemap:  # gets tile locs
             tile = self.tilemap[tile_loc]  # tile data dict
             surface.blit(
                 self.game.data[tile["type"]][tile["index"]],
                 (
-                    tile["pos"][0] * self.tile_size - offset[0], #subtract camera offset which make it moving
-                    tile["pos"][1] * self.tile_size - offset[1], 
+                    tile["pos"][0]  * self.tile_size
+                    - offset[0],  # subtract camera offset which make it moving
+                    tile["pos"][1] * self.tile_size - offset[1],
                 ),  # multiply with tile_size so each tile takes its size
             )
 

@@ -19,7 +19,7 @@ class Cloud:
         self.game = game
 
     def make_move(self) -> None:
-        self.pos[0] += 0000.5
+        self.pos[0] += 0.5 
         if self.pos[0] > self.game.screen_width:
             self.pos[0] = -220
 

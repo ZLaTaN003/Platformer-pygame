@@ -45,8 +45,7 @@ class Game:
                 cloud.make_move()
             
             self.scroll[0] += int((self.player.rect().centerx - self.display.get_width() / 2 - self.scroll[0])/30) # keeps camera focus on player
-            self.scroll[1] += int((self.player.rect().centerx - self.display.get_height()/ 2 - self.scroll[1])/30)
-
+            self.scroll[1] += int((self.player.rect().centery - self.display.get_height()/ 2 - self.scroll[1])/30)
             self.tilemap.draw(self.display, offset=self.scroll)
             self.player.draw(self.display, offset=self.scroll)
             moved = self.movement[1] - self.movement[0]  # +ve -ve movements
